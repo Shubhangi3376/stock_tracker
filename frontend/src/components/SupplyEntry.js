@@ -8,11 +8,13 @@ const SupplyEntry = () => {
   const [stock, setStock] = useState(null); // Track current stock
   const [date, setDate] = useState(""); // Store date field
 
+  const backendUrl = "https://stock-tracker-v227.onrender.com"; // Backend URL
+
   // Fetch retailers from backend
   useEffect(() => {
     const fetchRetailers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/retailers");
+        const response = await axios.get(`${backendUrl}/api/retailers`);
         setRetailers(response.data);
       } catch (error) {
         console.error("Error fetching retailers:", error);
@@ -27,7 +29,7 @@ const SupplyEntry = () => {
     if (retailerId) {
       const fetchStock = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/stock/${retailerId}`);
+          const response = await axios.get(`${backendUrl}/api/stock/${retailerId}`);
           setStock(response.data.remainingStock);
         } catch (error) {
           console.error("Error fetching stock:", error);
@@ -55,7 +57,7 @@ const SupplyEntry = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/supply/add", {
+      await axios.post(`${backendUrl}/api/supply/add`, {
         retailerId,
         suppliedPackets,
         date,

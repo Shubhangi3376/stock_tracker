@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const BASE_URL = process.env.REACT_APP_API_URL || 'https://stock-tracker-v227.onrender.com';
+
 const RetailerList = () => {
   const [retailers, setRetailers] = useState([]);
   const [name, setName] = useState('');
@@ -10,7 +12,7 @@ const RetailerList = () => {
   // Fetch retailers from the backend
   const fetchRetailers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/retailers');
+      const response = await axios.get(`${BASE_URL}/api/retailers`);
       setRetailers(response.data);
     } catch (error) {
       console.error("Error fetching retailers:", error);
@@ -25,8 +27,7 @@ const RetailerList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send retailer data without email
-      const response = await axios.post('http://localhost:5000/api/retailers/add', { name, contact, location });
+      const response = await axios.post(`${BASE_URL}/api/retailers/add`, { name, contact, location });
       alert(response.data.message); // Show success message
       fetchRetailers(); // Fetch updated retailer list
       // Clear the form
