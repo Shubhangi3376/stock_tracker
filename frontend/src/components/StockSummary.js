@@ -8,7 +8,7 @@ const StockSummary = () => {
   useEffect(() => {
     const fetchStockSummary = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/stock/summary");
+        const response = await axios.get("https://stock-tracker-v227.onrender.com/api/stock/summary");
         console.log("API Response:", response.data); // Debugging
         setStockSummary(response.data);
       } catch (error) {

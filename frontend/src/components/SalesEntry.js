@@ -5,29 +5,32 @@ const SalesEntry = () => {
   const [retailerId, setRetailerId] = useState("");
   const [soldPackets, setSoldPackets] = useState("");
   const [retailers, setRetailers] = useState([]);
-  const [stock, setStock] = useState(null); // Track current stock
-  const [date, setDate] = useState(""); // Store date field
+  const [stock, setStock] = useState(null);
+  const [date, setDate] = useState("");
+
+  // API base URL (use Vercel env variable)
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "https://stock-tracker-v227.onrender.com";
 
   // Fetch retailers from backend
   useEffect(() => {
     const fetchRetailers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/retailers");
+        const response = await axios.get(`${API_BASE_URL}/api/retailers`);
         setRetailers(response.data);
       } catch (error) {
         console.error("Error fetching retailers:", error);
-        alert("Failed to load retailers. Please check backend.");
+        alert("⚠️ Failed to load retailers. Please check backend.");
       }
     };
     fetchRetailers();
-  }, []);
+  }, [API_BASE_URL]);
 
   // Fetch stock when retailer is selected
   useEffect(() => {
     if (retailerId) {
       const fetchStock = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/stock/${retailerId}`);
+          const response = await axios.get(`${API_BASE_URL}/api/stock/${retailerId}`);
           setStock(response.data.remainingStock);
         } catch (error) {
           console.error("Error fetching stock:", error);
@@ -38,7 +41,7 @@ const SalesEntry = () => {
     } else {
       setStock(null);
     }
-  }, [retailerId]);
+  }, [retailerId, API_BASE_URL]);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -55,7 +58,7 @@ const SalesEntry = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/sales/add", {
+      await axios.post(`${API_BASE_URL}/api/sales/add`, {
         retailerId,
         soldPackets,
         date,
@@ -98,7 +101,6 @@ const SalesEntry = () => {
           </select>
         </div>
 
-        {/* Show stock information if retailer is selected */}
         {stock !== null && (
           <div className="alert alert-info mb-4">
             📦 <strong>{retailers.find((r) => r._id === retailerId)?.name}</strong> currently has <strong>{stock}</strong> packets.
