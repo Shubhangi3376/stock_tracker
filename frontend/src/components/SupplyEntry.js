@@ -8,7 +8,7 @@ const SupplyEntry = () => {
   const [stock, setStock] = useState(null); // Track current stock
   const [date, setDate] = useState(""); // Store date field
 
-  const backendUrl = "https://stock-tracker-v227.onrender.com"; // Backend URL
+  const backendUrl = "https://stock-tracker-v227.onrender.com"; // Backend URL https://stock-tracker-v227.onrender.com/
 
   // Fetch retailers from backend
   useEffect(() => {
