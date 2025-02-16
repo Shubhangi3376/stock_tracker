@@ -11,26 +11,6 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="/">Stock Tracker</a>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link" href="/">Retailers</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/supply">Supply Entry</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/sales">Sales Entry</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/stock-summary">Stock Summary</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
         <div className="container mt-5">
           <Routes>
             <Route path="/" element={<RetailerList />} />
